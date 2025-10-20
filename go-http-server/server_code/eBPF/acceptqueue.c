@@ -42,7 +42,8 @@ enum sk_action acceptq_selector(struct sk_reuseport_md *reuse)
     __u32 lowest_util = 0xFFFFFFFF;
 
 	for (__u32 i = 0; i < 4; i++) {
-		__u64 *cookie = bpf_map_lookup_elem(&acceptq_slot_cookies, &i);
+		__u32 i_copy = i;
+		__u64 *cookie = bpf_map_lookup_elem(&acceptq_slot_cookies, &i_copy);
 		if (!cookie || *cookie == 0) {
 			bpf_printk("slot=%u no_cookie", i);
 			continue;
