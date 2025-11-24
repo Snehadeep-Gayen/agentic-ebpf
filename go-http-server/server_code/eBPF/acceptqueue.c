@@ -55,8 +55,11 @@ static __always_inline void consider_slot(__u32 slot, __u32 *best_slot,
 		aq->max = 1;
 
 	__u32 util = aq->curr;
-	bpf_printk("slot=%u cookie=0x%llx curr=%u max=%u util=%u", slot, *cookie,
-		   aq->curr, aq->max, util);
+	bpf_printk("slot=%u cookie=0x%llx curr=%u",
+           slot, *cookie, aq->curr);
+	bpf_printk("slot=%u max=%u util=%u",
+			slot, aq->max, util);
+
 
 	if (util < *lowest_util) {
 		*lowest_util = util;
