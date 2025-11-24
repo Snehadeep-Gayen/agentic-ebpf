@@ -49,8 +49,9 @@ int BPF_KPROBE(on_syn_recv, struct sock *sk)
     q.cpu = cpu;
     bpf_map_update_elem(&acceptq_map, &sk_cookie, &q, BPF_ANY);
 
-    bpf_printk("PID: %d, Backlog: %d/%d, CPU: %d, Cookie: 0x%llx",
-               pid, sk_ack_backlog, sk_max_ack_backlog, cpu, sk_cookie);
+    bpf_printk("PID: %d, Backlog: %d/%d",
+               pid, sk_ack_backlog, sk_max_ack_backlog);
+    bpf_printk("CPU: %d, Cookie: 0x%llx", cpu, sk_cookie);
 
     return 0;
 }
